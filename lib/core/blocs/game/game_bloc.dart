@@ -57,7 +57,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
     on<ClearGameEvent>((event, emit) async {
       gameList = getDefaultGame(event.id);
-      await saveGames(event.id, gameList);
+      if (event.id != 0) {
+        await saveGames(event.id, gameList);
+      }
       emit(GameLoadedState(gameList: gameList));
     });
   }

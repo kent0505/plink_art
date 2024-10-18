@@ -32,7 +32,12 @@ List<Game> getDefaultGame(int id) {
   if (id == 7) return defaultGame7;
   if (id == 8) return defaultGame8;
   if (id == 9) return defaultGame9;
-  return defaultGame1;
+  return List.generate(
+    600,
+    (index) {
+      return Game(active: false);
+    },
+  );
 }
 
 Future<List<Game>> getGames(int id) async {

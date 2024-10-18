@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/widgets/cuper_button.dart';
 import '../../../core/widgets/text_r.dart';
-import '../bloc/home_bloc.dart';
+import '../../../core/blocs/home/home_bloc.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({super.key});

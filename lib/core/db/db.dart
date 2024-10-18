@@ -3,39 +3,37 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../models/game.dart';
 import '../utils.dart';
 
-class DB {
-  static String boxName = 'plinkartbox';
-  static String keyName = 'modelsList';
-  static List<Game> modelsList = [];
-}
+List<Game> game1 = [];
+List<Game> game2 = [];
+List<Game> game3 = [];
+List<Game> game4 = [];
+List<Game> game5 = [];
+List<Game> game6 = [];
+List<Game> game7 = [];
+List<Game> game8 = [];
+List<Game> game9 = [];
+List<Game> game10 = [];
 
 Future<void> initHive() async {
   try {
     await Hive.initFlutter();
-    // await Hive.deleteBoxFromDisk(DB.boxName);
+    // await Hive.deleteBoxFromDisk('plinkartbox');
     Hive.registerAdapter(GameAdapter());
   } catch (e) {
     logger(e);
   }
 }
 
-Future<void> getModels() async {
-  try {
-    final box = await Hive.openBox(DB.boxName);
-    List data = box.get(DB.keyName) ?? [];
-    DB.modelsList = data.cast<Game>();
-    logger(DB.modelsList.length);
-  } catch (e) {
-    logger(e);
-  }
-}
-
-Future<void> updateModels() async {
-  try {
-    final box = await Hive.openBox(DB.boxName);
-    box.put(DB.keyName, DB.modelsList);
-    DB.modelsList = await box.get(DB.keyName);
-  } catch (e) {
-    logger(e);
-  }
+List<Game> getListByID(int id) {
+  if (id == 1) return game1;
+  if (id == 2) return game2;
+  if (id == 3) return game3;
+  if (id == 4) return game4;
+  if (id == 5) return game5;
+  if (id == 6) return game6;
+  if (id == 7) return game7;
+  if (id == 8) return game8;
+  if (id == 9) return game9;
+  if (id == 10) return game10;
+  return game1;
 }

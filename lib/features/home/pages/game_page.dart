@@ -1,28 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../core/blocs/bloc/game_bloc.dart';
 import '../../../core/models/game.dart';
 import '../../../core/widgets/custom_appbar.dart';
 import '../../../core/widgets/custom_scaffold.dart';
 import '../widgets/game_field.dart';
 
 class GamePage extends StatefulWidget {
-  const GamePage({super.key});
+  const GamePage({super.key, required this.id});
+
+  final int id;
 
   @override
   State<GamePage> createState() => _GamePageState();
 }
 
 class _GamePageState extends State<GamePage> {
-  List<Game> gameList = List.generate(
-    600,
-    (index) {
-      return Game(id: index + 1);
-    },
-  );
-
   void onClear() {}
 
-  void onSave() {}
+  void onSave() {
+    context.read<GameBloc>().add(SaveGameEvent(id: widget.id));
+    context.pop();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<GameBloc>().add(LoadGameEvent(
+          id: widget.id,
+        ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,36 +45,48 @@ class _GamePageState extends State<GamePage> {
             onSave: onSave,
           ),
           const Spacer(),
-          _Fields(gameList, 0),
-          _Fields(gameList, 20),
-          _Fields(gameList, 40),
-          _Fields(gameList, 60),
-          _Fields(gameList, 80),
-          _Fields(gameList, 100),
-          _Fields(gameList, 120),
-          _Fields(gameList, 140),
-          _Fields(gameList, 160),
-          _Fields(gameList, 180),
-          _Fields(gameList, 200),
-          _Fields(gameList, 220),
-          _Fields(gameList, 240),
-          _Fields(gameList, 260),
-          _Fields(gameList, 280),
-          _Fields(gameList, 300),
-          _Fields(gameList, 320),
-          _Fields(gameList, 340),
-          _Fields(gameList, 360),
-          _Fields(gameList, 380),
-          _Fields(gameList, 400),
-          _Fields(gameList, 420),
-          _Fields(gameList, 440),
-          _Fields(gameList, 460),
-          _Fields(gameList, 480),
-          _Fields(gameList, 500),
-          _Fields(gameList, 520),
-          _Fields(gameList, 540),
-          _Fields(gameList, 560),
-          _Fields(gameList, 580),
+          BlocBuilder<GameBloc, GameState>(
+            builder: (context, state) {
+              if (state is GameLoadedState) {
+                return Column(
+                  children: [
+                    _Fields(state.gameList, 0),
+                    _Fields(state.gameList, 20),
+                    _Fields(state.gameList, 40),
+                    _Fields(state.gameList, 60),
+                    _Fields(state.gameList, 80),
+                    _Fields(state.gameList, 100),
+                    _Fields(state.gameList, 120),
+                    _Fields(state.gameList, 140),
+                    _Fields(state.gameList, 160),
+                    _Fields(state.gameList, 180),
+                    _Fields(state.gameList, 200),
+                    _Fields(state.gameList, 220),
+                    _Fields(state.gameList, 240),
+                    _Fields(state.gameList, 260),
+                    _Fields(state.gameList, 280),
+                    _Fields(state.gameList, 300),
+                    _Fields(state.gameList, 320),
+                    _Fields(state.gameList, 340),
+                    _Fields(state.gameList, 360),
+                    _Fields(state.gameList, 380),
+                    _Fields(state.gameList, 400),
+                    _Fields(state.gameList, 420),
+                    _Fields(state.gameList, 440),
+                    _Fields(state.gameList, 460),
+                    _Fields(state.gameList, 480),
+                    _Fields(state.gameList, 500),
+                    _Fields(state.gameList, 520),
+                    _Fields(state.gameList, 540),
+                    _Fields(state.gameList, 560),
+                    _Fields(state.gameList, 580),
+                  ],
+                );
+              }
+
+              return Container();
+            },
+          ),
           const Spacer(),
         ],
       ),

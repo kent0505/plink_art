@@ -13,7 +13,7 @@ class GameCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return CuperButton(
       onPressed: () {
-        context.push('/game');
+        context.push('/game', extra: id);
       },
       child: Container(
         height: 170,

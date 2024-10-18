@@ -1,48 +1,6 @@
 import 'dart:developer' as developer;
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-
-int getCurrentTimestamp() {
-  return DateTime.now().millisecondsSinceEpoch ~/ 1000;
-}
-
-String timestampToString(int timestamp) {
-  // timestamp to 22.06.2000
-  try {
-    DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
-    return DateFormat('dd.MM.yyyy').format(date);
-  } catch (e) {
-    return 'Error';
-  }
-}
-
-String dateToString(DateTime date) {
-  // DateTime to 22.06.2000
-  try {
-    return DateFormat('dd.MM.yyyy').format(date);
-  } catch (e) {
-    return 'Error';
-  }
-}
-
-String timeToString(DateTime time) {
-  // DateTime to 22:00
-  try {
-    return DateFormat('HH:mm').format(time);
-  } catch (e) {
-    return 'Error';
-  }
-}
-
-DateTime stringToDate(String date) {
-  // 22.06.2000 to DateTime
-  try {
-    return DateFormat('dd.MM.yyyy').parse(date);
-  } catch (e) {
-    return DateTime.now();
-  }
-}
 
 double getStatusBar(BuildContext context) {
   return MediaQuery.of(context).viewPadding.top;
@@ -72,5 +30,29 @@ void logger(Object message) {
     developer.log(message.toString());
   } catch (e) {
     debugPrint(e.toString());
+  }
+}
+
+void precacheImages(BuildContext context) {
+  List<String> imageAssets = [
+    'assets/bg1.png',
+    'assets/bg2.png',
+    'assets/game1.png',
+    'assets/game2.png',
+    'assets/game3.png',
+    'assets/game4.png',
+    'assets/game5.png',
+    'assets/game6.png',
+    'assets/game7.png',
+    'assets/game8.png',
+    'assets/game9.png',
+    'assets/game10.png',
+  ];
+  try {
+    for (String assets in imageAssets) {
+      precacheImage(AssetImage(assets), context);
+    }
+  } catch (e) {
+    logger(e);
   }
 }

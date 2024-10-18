@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 @HiveType(typeId: 0)
@@ -6,13 +5,13 @@ class Game {
   @HiveField(0)
   final int id;
   @HiveField(1)
-  Color color;
+  int color;
   @HiveField(2)
   bool active;
 
   Game({
     required this.id,
-    this.color = const Color(0xff2E204D),
+    this.color = 0xff2E204D,
     this.active = false,
   });
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/blocs/bloc/game_bloc.dart';
 import '../../../core/models/game.dart';
 import '../../../core/widgets/cuper_button.dart';
 
@@ -11,14 +13,20 @@ class GameField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CuperButton(
-      onPressed: () {},
+      onPressed: () {
+        context.read<GameBloc>().add(ChangeColorEvent(
+                game: Game(
+              id: game.id,
+              color: 0xffFF0000,
+            )));
+      },
       minSize: 18,
       child: Container(
         height: 18,
         width: 18,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: game.color,
+          color: Color(game.color),
           boxShadow: [
             if (!game.active)
               BoxShadow(

@@ -17,7 +17,9 @@ final routerConfig = GoRouter(
     ),
     GoRoute(
       path: '/game',
-      builder: (context, state) => const GamePage(),
+      builder: (context, state) => GamePage(
+        id: state.extra as int,
+      ),
     ),
   ],
 );

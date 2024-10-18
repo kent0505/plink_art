@@ -5,7 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/config/router.dart';
 import 'core/config/themes.dart';
 import 'core/db/db.dart';
-import 'features/home/bloc/home_bloc.dart';
+import 'core/blocs/home/home_bloc.dart';
+import 'core/blocs/bloc/game_bloc.dart';
+import 'core/utils.dart';
 
 void main() async {
   await initHive();
@@ -21,9 +23,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    precacheImages(context);
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => HomeBloc()),
+        BlocProvider(create: (context) => GameBloc()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

@@ -21,3 +21,8 @@ class SaveGameEvent extends GameEvent {
   final int id;
   SaveGameEvent({required this.id});
 }
+
+class ClearGameEvent extends GameEvent {
+  final int id;
+  ClearGameEvent({required this.id});
+}

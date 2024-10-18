@@ -134,6 +134,7 @@ List<Color> getGameColors(int id) {
   }
 
   return [
+    const Color(0xff2E204D),
     const Color(0xffDB4546),
     const Color(0xff432D4A),
     const Color(0xff6C5462),

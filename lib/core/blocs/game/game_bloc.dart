@@ -40,7 +40,11 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       for (Game game in gameList) {
         if (game == selectedGame) {
           game.color = event.color;
-          game.active = true;
+          if (event.color == 0xff2E204D) {
+            game.active = false;
+          } else {
+            game.active = true;
+          }
         }
       }
       emit(GameLoadedState(gameList: gameList));
@@ -48,6 +52,12 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
     on<SaveGameEvent>((event, emit) async {
       gameList = await saveGames(event.id, gameList);
+      emit(GameLoadedState(gameList: gameList));
+    });
+
+    on<ClearGameEvent>((event, emit) async {
+      gameList = getDefaultGame(event.id);
+      await saveGames(event.id, gameList);
       emit(GameLoadedState(gameList: gameList));
     });
   }

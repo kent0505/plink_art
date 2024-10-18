@@ -20,7 +20,9 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
-  void onClear() {}
+  void onClear() {
+    context.read<GameBloc>().add(ClearGameEvent(id: widget.id));
+  }
 
   void onSave() {
     context.read<GameBloc>().add(SaveGameEvent(id: widget.id));

@@ -15,7 +15,7 @@ import '../utils.dart';
 Future<void> initHive() async {
   try {
     await Hive.initFlutter();
-    await Hive.deleteBoxFromDisk('plinkartbox');
+    // await Hive.deleteBoxFromDisk('plinkartbox');
     Hive.registerAdapter(GameAdapter());
   } catch (e) {
     logger(e);

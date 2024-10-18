@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
+import '../../db/db.dart';
 import '../../models/game.dart';
 
 part 'game_event.dart';
@@ -8,35 +8,37 @@ part 'game_state.dart';
 
 class GameBloc extends Bloc<GameEvent, GameState> {
   List<Game> gameList = [];
-  Game selectedGame = Game(id: 0);
+  Game selectedGame = Game();
 
   GameBloc() : super(GameInitial()) {
     on<LoadGameEvent>((event, emit) async {
       emit(GameLoadingState());
-      final box = await Hive.openBox('plinkartbox');
-      List data = box.get('game${event.id}') ??
-          List.generate(
-            600,
-            (index) {
-              return Game(id: index + 1);
-            },
-          );
-      await Future.delayed(const Duration(seconds: 1), () {
-        gameList = data.cast<Game>();
+      if (event.id == 0) {
+        gameList = List.generate(
+          600,
+          (index) {
+            return Game(active: false);
+          },
+        );
         emit(GameLoadedState(gameList: gameList));
-      });
+      } else {
+        gameList = await getGames(event.id);
+        await Future.delayed(const Duration(seconds: 1), () {
+          emit(GameLoadedState(gameList: gameList));
+        });
+      }
     });
 
     on<SelectGameEvent>((event, emit) {
       for (Game game in gameList) {
-        if (game.id == event.game.id) selectedGame = game;
+        if (game == event.game) selectedGame = game;
       }
       emit(GameLoadedState(gameList: gameList));
     });
 
     on<ChangeColorEvent>((event, emit) {
       for (Game game in gameList) {
-        if (game.id == selectedGame.id) {
+        if (game == selectedGame) {
           game.color = event.color;
           game.active = true;
         }
@@ -45,9 +47,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     });
 
     on<SaveGameEvent>((event, emit) async {
-      final box = await Hive.openBox('plinkartbox');
-      box.put('game${event.id}', gameList);
-      gameList = await box.get('game${event.id}');
+      gameList = await saveGames(event.id, gameList);
       emit(GameLoadedState(gameList: gameList));
     });
   }

@@ -1,37 +1,48 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../models/game.dart';
+import '../models/game1.dart';
+import '../models/game2.dart';
+import '../models/game3.dart';
+import '../models/game4.dart';
+import '../models/game5.dart';
+import '../models/game6.dart';
+import '../models/game7.dart';
+import '../models/game8.dart';
+import '../models/game9.dart';
 import '../utils.dart';
-
-List<Game> game1 = [];
-List<Game> game2 = [];
-List<Game> game3 = [];
-List<Game> game4 = [];
-List<Game> game5 = [];
-List<Game> game6 = [];
-List<Game> game7 = [];
-List<Game> game8 = [];
-List<Game> game9 = [];
 
 Future<void> initHive() async {
   try {
     await Hive.initFlutter();
-    // await Hive.deleteBoxFromDisk('plinkartbox');
+    await Hive.deleteBoxFromDisk('plinkartbox');
     Hive.registerAdapter(GameAdapter());
   } catch (e) {
     logger(e);
   }
 }
 
-List<Game> getListByID(int id) {
-  if (id == 1) return game1;
-  if (id == 2) return game2;
-  if (id == 3) return game3;
-  if (id == 4) return game4;
-  if (id == 5) return game5;
-  if (id == 6) return game6;
-  if (id == 7) return game7;
-  if (id == 8) return game8;
-  if (id == 9) return game9;
-  return game1;
+List<Game> getDefaultGame(int id) {
+  if (id == 1) return defaultGame1;
+  if (id == 2) return defaultGame2;
+  if (id == 3) return defaultGame3;
+  if (id == 4) return defaultGame4;
+  if (id == 5) return defaultGame5;
+  if (id == 6) return defaultGame6;
+  if (id == 7) return defaultGame7;
+  if (id == 8) return defaultGame8;
+  if (id == 9) return defaultGame9;
+  return defaultGame1;
+}
+
+Future<List<Game>> getGames(int id) async {
+  final box = await Hive.openBox('plinkartbox');
+  List data = box.get('game$id') ?? getDefaultGame(id);
+  return data.cast<Game>();
+}
+
+Future<List<Game>> saveGames(int id, List<Game> gameList) async {
+  final box = await Hive.openBox('plinkartbox');
+  box.put('game$id', gameList);
+  return await box.get('game$id');
 }

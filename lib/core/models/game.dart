@@ -3,16 +3,13 @@ import 'package:hive_flutter/hive_flutter.dart';
 @HiveType(typeId: 0)
 class Game {
   @HiveField(0)
-  final int id;
-  @HiveField(1)
   int color;
-  @HiveField(2)
+  @HiveField(1)
   bool active;
 
   Game({
-    required this.id,
     this.color = 0xff2E204D,
-    this.active = false,
+    this.active = true,
   });
 }
 
@@ -23,7 +20,6 @@ class GameAdapter extends TypeAdapter<Game> {
   @override
   Game read(BinaryReader reader) {
     return Game(
-      id: reader.read(),
       color: reader.read(),
       active: reader.read(),
     );
@@ -31,7 +27,6 @@ class GameAdapter extends TypeAdapter<Game> {
 
   @override
   void write(BinaryWriter writer, Game obj) {
-    writer.write(obj.id);
     writer.write(obj.color);
     writer.write(obj.active);
   }

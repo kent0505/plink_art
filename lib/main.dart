@@ -6,7 +6,7 @@ import 'core/config/router.dart';
 import 'core/config/themes.dart';
 import 'core/db/db.dart';
 import 'core/blocs/home/home_bloc.dart';
-import 'core/blocs/bloc/game_bloc.dart';
+import 'core/blocs/game/game_bloc.dart';
 import 'core/utils.dart';
 
 void main() async {
@@ -38,3 +38,10 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+// settings
+// onboarding
+// game default colors
+// add my work
+// color picker
+// clear button

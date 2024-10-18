@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/blocs/bloc/game_bloc.dart';
+import '../../../core/blocs/game/game_bloc.dart';
 import '../../../core/config/app_colors.dart';
 import '../../../core/widgets/cuper_button.dart';
 

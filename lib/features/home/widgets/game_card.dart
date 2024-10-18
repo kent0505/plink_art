@@ -16,8 +16,8 @@ class GameCard extends StatelessWidget {
         context.push('/game', extra: id);
       },
       child: Container(
-        height: 170,
-        width: 170,
+        height: 168,
+        width: 168,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           gradient: const LinearGradient(

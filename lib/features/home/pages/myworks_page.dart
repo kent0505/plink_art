@@ -31,7 +31,7 @@ class _MyworksPageState extends State<MyworksPage> {
           children: [
             GameCard(0),
             SizedBox(width: 16),
-            SizedBox(width: 170),
+            SizedBox(width: 168),
           ],
         ),
         const SizedBox(height: 16),

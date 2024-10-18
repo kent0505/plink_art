@@ -5,9 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/config/router.dart';
 import 'core/config/themes.dart';
 import 'core/db/db.dart';
+import 'core/utils.dart';
 import 'core/blocs/home/home_bloc.dart';
 import 'core/blocs/game/game_bloc.dart';
-import 'core/utils.dart';
+import 'core/blocs/mygame/mygame_bloc.dart';
 
 void main() async {
   await initHive();
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => HomeBloc()),
         BlocProvider(create: (context) => GameBloc()),
+        BlocProvider(create: (context) => MygameBloc()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

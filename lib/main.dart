@@ -38,8 +38,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// settings
-// game default colors
-// add my work
-// color picker

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/utils.dart';
+import '../widgets/game_card.dart';
 import '../widgets/title_card.dart';
 
 class MainPage extends StatelessWidget {
@@ -13,6 +14,52 @@ class MainPage extends StatelessWidget {
       children: [
         SizedBox(height: 45 + getStatusBar(context)),
         const TitleCard(),
+        const SizedBox(height: 16),
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GameCard(1),
+            SizedBox(width: 16),
+            GameCard(2),
+          ],
+        ),
+        const SizedBox(height: 16),
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GameCard(3),
+            SizedBox(width: 16),
+            GameCard(4),
+          ],
+        ),
+        const SizedBox(height: 16),
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GameCard(5),
+            SizedBox(width: 16),
+            GameCard(6),
+          ],
+        ),
+        const SizedBox(height: 16),
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GameCard(7),
+            SizedBox(width: 16),
+            GameCard(8),
+          ],
+        ),
+        const SizedBox(height: 16),
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GameCard(9),
+            SizedBox(width: 16),
+            GameCard(10),
+          ],
+        ),
+        const SizedBox(height: 100),
       ],
     );
   }

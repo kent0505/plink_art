@@ -5,10 +5,12 @@ class CustomScaffold extends StatelessWidget {
     super.key,
     required this.body,
     this.id = 2,
+    this.game = false,
   });
 
   final Widget body;
   final int id;
+  final bool game;
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +18,25 @@ class CustomScaffold extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
-          Container(
-            height: double.infinity,
-            width: double.infinity,
-            color: const Color(0xff2E1156),
-          ),
+          if (game)
+            Container(
+              height: double.infinity,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xff2E1156),
+                    Color(0xff11092B),
+                  ],
+                ),
+              ),
+            )
+          else
+            Container(
+              height: double.infinity,
+              width: double.infinity,
+              color: const Color(0xff2E1156),
+            ),
           // SvgPicture.asset(
           //   'assets/bg$id.svg',
           //   width: double.infinity,

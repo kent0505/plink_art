@@ -1,19 +1,19 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../models/test_model.dart';
+import '../models/game.dart';
 import '../utils.dart';
 
 class DB {
-  static String boxName = 'shablonbox';
+  static String boxName = 'plinkartbox';
   static String keyName = 'modelsList';
-  static List<TestModel> modelsList = [];
+  static List<Game> modelsList = [];
 }
 
 Future<void> initHive() async {
   try {
     await Hive.initFlutter();
     // await Hive.deleteBoxFromDisk(DB.boxName);
-    Hive.registerAdapter(TestModelAdapter());
+    Hive.registerAdapter(GameAdapter());
   } catch (e) {
     logger(e);
   }
@@ -23,7 +23,7 @@ Future<void> getModels() async {
   try {
     final box = await Hive.openBox(DB.boxName);
     List data = box.get(DB.keyName) ?? [];
-    DB.modelsList = data.cast<TestModel>();
+    DB.modelsList = data.cast<Game>();
     logger(DB.modelsList.length);
   } catch (e) {
     logger(e);

@@ -14,7 +14,6 @@ class _SettingsPageState extends State<SettingsPage> {
       child: Container(
         height: 300,
         width: 300,
-        // padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           gradient: const LinearGradient(

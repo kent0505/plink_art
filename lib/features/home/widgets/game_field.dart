@@ -6,7 +6,10 @@ import '../../../core/models/game.dart';
 import '../../../core/widgets/cuper_button.dart';
 
 class GameField extends StatelessWidget {
-  const GameField({super.key, required this.game});
+  const GameField({
+    super.key,
+    required this.game,
+  });
 
   final Game game;
 
@@ -14,11 +17,7 @@ class GameField extends StatelessWidget {
   Widget build(BuildContext context) {
     return CuperButton(
       onPressed: () {
-        context.read<GameBloc>().add(ChangeColorEvent(
-                game: Game(
-              id: game.id,
-              color: 0xffFF0000,
-            )));
+        context.read<GameBloc>().add(SelectGameEvent(game: game));
       },
       minSize: 18,
       child: Container(

@@ -12,7 +12,6 @@ List<Game> game6 = [];
 List<Game> game7 = [];
 List<Game> game8 = [];
 List<Game> game9 = [];
-List<Game> game10 = [];
 
 Future<void> initHive() async {
   try {
@@ -34,6 +33,5 @@ List<Game> getListByID(int id) {
   if (id == 7) return game7;
   if (id == 8) return game8;
   if (id == 9) return game9;
-  if (id == 10) return game10;
   return game1;
 }

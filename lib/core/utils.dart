@@ -46,7 +46,6 @@ void precacheImages(BuildContext context) {
     'assets/game7.png',
     'assets/game8.png',
     'assets/game9.png',
-    'assets/game10.png',
   ];
   try {
     for (String assets in imageAssets) {

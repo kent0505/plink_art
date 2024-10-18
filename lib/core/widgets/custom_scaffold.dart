@@ -24,31 +24,29 @@ class CustomScaffold extends StatelessWidget {
               width: double.infinity,
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                   colors: [
+                    Color(0xff11092B),
                     Color(0xff2E1156),
                     Color(0xff11092B),
                   ],
                 ),
               ),
             )
-          else
+          else ...[
             Container(
               height: double.infinity,
               width: double.infinity,
               color: const Color(0xff2E1156),
             ),
-          // SvgPicture.asset(
-          //   'assets/bg$id.svg',
-          //   width: double.infinity,
-          //   height: double.infinity,
-          //   fit: BoxFit.cover,
-          // ),
-          Image.asset(
-            'assets/bg$id.png',
-            width: double.infinity,
-            height: double.infinity,
-            fit: BoxFit.cover,
-          ),
+            Image.asset(
+              'assets/bg$id.png',
+              width: double.infinity,
+              height: double.infinity,
+              fit: BoxFit.cover,
+            ),
+          ],
           body,
         ],
       ),

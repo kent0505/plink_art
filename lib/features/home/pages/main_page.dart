@@ -56,7 +56,8 @@ class MainPage extends StatelessWidget {
           children: [
             GameCard(9),
             SizedBox(width: 16),
-            GameCard(10),
+            // GameCard(10),
+            SizedBox(width: 170),
           ],
         ),
         const SizedBox(height: 100),

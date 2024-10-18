@@ -8,10 +8,11 @@ part 'game_state.dart';
 
 class GameBloc extends Bloc<GameEvent, GameState> {
   List<Game> gameList = [];
-  List mygames = [];
+  Game selectedGame = Game(id: 0);
 
   GameBloc() : super(GameInitial()) {
     on<LoadGameEvent>((event, emit) async {
+      emit(GameLoadingState());
       final box = await Hive.openBox('plinkartbox');
       List data = box.get('game${event.id}') ??
           List.generate(
@@ -20,14 +21,23 @@ class GameBloc extends Bloc<GameEvent, GameState> {
               return Game(id: index + 1);
             },
           );
-      gameList = data.cast<Game>();
+      await Future.delayed(const Duration(seconds: 1), () {
+        gameList = data.cast<Game>();
+        emit(GameLoadedState(gameList: gameList));
+      });
+    });
+
+    on<SelectGameEvent>((event, emit) {
+      for (Game game in gameList) {
+        if (game.id == event.game.id) selectedGame = game;
+      }
       emit(GameLoadedState(gameList: gameList));
     });
 
     on<ChangeColorEvent>((event, emit) {
       for (Game game in gameList) {
-        if (game.id == event.game.id) {
-          game.color = event.game.color;
+        if (game.id == selectedGame.id) {
+          game.color = event.color;
           game.active = true;
         }
       }

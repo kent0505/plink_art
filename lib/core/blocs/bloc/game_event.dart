@@ -7,9 +7,14 @@ class LoadGameEvent extends GameEvent {
   LoadGameEvent({required this.id});
 }
 
-class ChangeColorEvent extends GameEvent {
+class SelectGameEvent extends GameEvent {
   final Game game;
-  ChangeColorEvent({required this.game});
+  SelectGameEvent({required this.game});
+}
+
+class ChangeColorEvent extends GameEvent {
+  final int color;
+  ChangeColorEvent({required this.color});
 }
 
 class SaveGameEvent extends GameEvent {

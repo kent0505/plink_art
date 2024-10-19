@@ -8,6 +8,7 @@ import 'core/db/db.dart';
 import 'core/utils.dart';
 import 'core/blocs/home/home_bloc.dart';
 import 'core/blocs/game/game_bloc.dart';
+import 'core/blocs/music/music_bloc.dart';
 
 void main() async {
   await initHive();
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => HomeBloc()),
         BlocProvider(create: (context) => GameBloc()),
+        BlocProvider(create: (context) => MusicBloc()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

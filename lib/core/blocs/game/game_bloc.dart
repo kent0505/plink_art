@@ -12,7 +12,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
   GameBloc() : super(GameInitial()) {
     on<LoadGameEvent>((event, emit) async {
-      emit(GameLoadingState());
       if (event.id == 0) {
         gameList = List.generate(
           600,
@@ -23,9 +22,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         emit(GameLoadedState(gameList: gameList));
       } else {
         gameList = await getGames(event.id);
-        await Future.delayed(const Duration(seconds: 1), () {
-          emit(GameLoadedState(gameList: gameList));
-        });
+        emit(GameLoadedState(gameList: gameList));
       }
     });
 
@@ -57,9 +54,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
     on<ClearGameEvent>((event, emit) async {
       gameList = getDefaultGame(event.id);
-      // if (event.id != 0) {
-      //   gameList = await saveGames(event.id, gameList);
-      // }
       emit(GameLoadedState(gameList: gameList));
     });
   }

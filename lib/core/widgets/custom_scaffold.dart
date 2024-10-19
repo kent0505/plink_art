@@ -29,6 +29,7 @@ class CustomScaffold extends StatelessWidget {
                   colors: [
                     Color(0xff11092B),
                     Color(0xff2E1156),
+                    Color(0xff2E1156),
                     Color(0xff11092B),
                   ],
                 ),

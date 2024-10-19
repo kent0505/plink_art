@@ -15,7 +15,7 @@ import '../utils.dart';
 Future<void> initHive() async {
   try {
     await Hive.initFlutter();
-    // await Hive.deleteBoxFromDisk('plinkartbox');
+    await Hive.deleteBoxFromDisk('plinkartbox');
     Hive.registerAdapter(GameAdapter());
   } catch (e) {
     logger(e);
@@ -35,7 +35,7 @@ List<Game> getDefaultGame(int id) {
   return List.generate(
     600,
     (index) {
-      return Game(active: false);
+      return Game(active: false, color: 0xff2E204D);
     },
   );
 }

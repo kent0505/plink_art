@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/blocs/music/music_bloc.dart';
 import '../../../core/widgets/cuper_button.dart';
 import '../../../core/widgets/text_r.dart';
 
@@ -13,6 +15,8 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  ValueNotifier<double> volume = ValueNotifier(1);
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -61,7 +65,57 @@ class _SettingsPageState extends State<SettingsPage> {
                     child: TextMain('Music', fontSize: 30),
                   ),
                 ),
-                // music volume slider
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  top: 146,
+                  child: Center(
+                    child: Container(
+                      height: 20,
+                      width: 190,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        gradient: const LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Color(0xffE9F514),
+                            Color(0xffED5732),
+                          ],
+                        ),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color(0xffDCF700),
+                            blurRadius: 4,
+                          ),
+                        ],
+                      ),
+                      child: SliderTheme(
+                        data: SliderTheme.of(context).copyWith(
+                          inactiveTrackColor: Colors.transparent,
+                          activeTrackColor: Colors.transparent,
+                          thumbColor: Colors.white,
+                          trackHeight: 50.0,
+                          thumbShape: const RoundSliderThumbShape(
+                            enabledThumbRadius: 25,
+                          ),
+                        ),
+                        child: Slider(
+                          min: 0.0,
+                          max: 1.0,
+                          value: volume.value,
+                          onChanged: (value) async {
+                            volume.value = value;
+                            context
+                                .read<MusicBloc>()
+                                .add(ChangeVolumeEvent(volume: value));
+                            setState(() {});
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 Positioned(
                   bottom: 35,
                   left: 0,

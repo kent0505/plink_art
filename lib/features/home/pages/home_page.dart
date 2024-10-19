@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:audioplayers/audioplayers.dart';
 
+import '../../../core/blocs/music/music_bloc.dart';
 import '../../../core/widgets/custom_scaffold.dart';
 import '../../../core/blocs/home/home_bloc.dart';
 import '../widgets/nav_bar.dart';
@@ -17,49 +17,25 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
-  final player = AudioPlayer();
-  bool playing = false;
-
-  void onSound() {
-    setState(() {
-      if (playing) {
-        player.pause();
-        playing = false;
-      } else {
-        player.play(AssetSource('music.mp3'));
-        player.setReleaseMode(ReleaseMode.loop);
-        playing = true;
-      }
-    });
-  }
-
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    // onSound();
+    context.read<MusicBloc>().add(StartMusicEvent());
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.paused) {
-      player.pause();
-      player.getCurrentPosition().then((position) {
-        if (position != null && position.inMilliseconds > 0) {
-          playing = true;
-        } else {
-          playing = false;
-        }
-      });
+      context.read<MusicBloc>().add(PauseMusicEvent());
     } else if (state == AppLifecycleState.resumed) {
-      if (playing) player.resume();
+      context.read<MusicBloc>().add(ResumeMusicEvent());
     }
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    player.stop();
     super.dispose();
   }
 

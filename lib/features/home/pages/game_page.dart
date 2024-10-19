@@ -6,7 +6,6 @@ import '../../../core/blocs/game/game_bloc.dart';
 import '../../../core/models/game.dart';
 import '../../../core/widgets/custom_appbar.dart';
 import '../../../core/widgets/custom_scaffold.dart';
-import '../../../core/widgets/loading_widget.dart';
 import '../widgets/color_widget.dart';
 import '../widgets/game_field.dart';
 
@@ -49,10 +48,6 @@ class _GamePageState extends State<GamePage> {
           Expanded(
             child: BlocBuilder<GameBloc, GameState>(
               builder: (context, state) {
-                if (state is GameLoadingState) {
-                  return const LoadingWidget();
-                }
-
                 if (state is GameLoadedState) {
                   return Column(
                     children: [

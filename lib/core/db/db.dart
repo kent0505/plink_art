@@ -15,7 +15,7 @@ import '../utils.dart';
 Future<void> initHive() async {
   try {
     await Hive.initFlutter();
-    await Hive.deleteBoxFromDisk('plinkartbox');
+    // await Hive.deleteBoxFromDisk('plinkartbox');
     Hive.registerAdapter(GameAdapter());
   } catch (e) {
     logger(e);
@@ -49,5 +49,5 @@ Future<List<Game>> getGames(int id) async {
 Future<List<Game>> saveGames(int id, List<Game> gameList) async {
   final box = await Hive.openBox('plinkartbox');
   box.put('game$id', gameList);
-  return await box.get('game$id');
+  return await box.get('game$id') ?? getDefaultGame(id);
 }

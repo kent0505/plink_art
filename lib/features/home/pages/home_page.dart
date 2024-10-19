@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    context.read<MusicBloc>().add(StartMusicEvent());
+    // context.read<MusicBloc>().add(StartMusicEvent());
   }
 
   @override

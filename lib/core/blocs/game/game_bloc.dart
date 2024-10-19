@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../db/db.dart';
 import '../../models/game.dart';
+import '../../utils.dart';
 
 part 'game_event.dart';
 part 'game_state.dart';
@@ -12,18 +13,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
   GameBloc() : super(GameInitial()) {
     on<LoadGameEvent>((event, emit) async {
-      if (event.id == 0) {
-        gameList = List.generate(
-          600,
-          (index) {
-            return Game(active: false);
-          },
-        );
-        emit(GameLoadedState(gameList: gameList));
-      } else {
-        gameList = await getGames(event.id);
-        emit(GameLoadedState(gameList: gameList));
-      }
+      gameList = await getGames(event.id);
+      emit(GameLoadedState(gameList: gameList));
     });
 
     on<SelectGameEvent>((event, emit) {
@@ -33,7 +24,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       emit(GameLoadedState(gameList: gameList));
     });
 
-    on<ChangeColorEvent>((event, emit) {
+    on<ChangeColorEvent>((event, emit) async {
       for (Game game in gameList) {
         if (game == selectedGame) {
           game.color = event.color;
@@ -48,12 +39,18 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     });
 
     on<SaveGameEvent>((event, emit) async {
-      gameList = await saveGames(event.id, gameList);
+      if (event.id == 0) {
+        // save my art
+      } else {
+        gameList = await saveGames(event.id, gameList);
+      }
       emit(GameLoadedState(gameList: gameList));
     });
 
     on<ClearGameEvent>((event, emit) async {
+      logger(event.id);
       gameList = getDefaultGame(event.id);
+      emit(GameLoadedState(gameList: gameList));
       emit(GameLoadedState(gameList: gameList));
     });
   }

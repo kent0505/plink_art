@@ -51,3 +51,15 @@ Future<List<Game>> saveGames(int id, List<Game> gameList) async {
   box.put('game$id', gameList);
   return await box.get('game$id') ?? getDefaultGame(id);
 }
+
+Future<List<Game>> getMygames() async {
+  final box = await Hive.openBox('plinkartbox');
+  List data = box.get('mygame') ?? getDefaultGame(0);
+  return data.cast<Game>();
+}
+
+Future<List<Game>> saveMygames(List<Game> gameList) async {
+  final box = await Hive.openBox('plinkartbox');
+  box.put('mygame', gameList);
+  return await box.get('mygame') ?? getDefaultGame(0);
+}

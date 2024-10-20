@@ -13,7 +13,11 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
   GameBloc() : super(GameInitial()) {
     on<LoadGameEvent>((event, emit) async {
-      gameList = await getGames(event.id);
+      if (event.id == 0) {
+        gameList = await getMygames();
+      } else {
+        gameList = await getGames(event.id);
+      }
       emit(GameLoadedState(gameList: gameList));
     });
 
@@ -40,7 +44,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
     on<SaveGameEvent>((event, emit) async {
       if (event.id == 0) {
-        // save my art
+        gameList = await saveMygames(gameList);
       } else {
         gameList = await saveGames(event.id, gameList);
       }

@@ -41,7 +41,7 @@ class ColorWidget extends StatelessWidget {
                   return _ColorButton(getGameColors(id)[index]);
                 },
               ),
-              if (id == 0) const _AddColor(),
+              // if (id == 0) const _AddColor(),
             ],
           ),
         ),
@@ -76,7 +76,7 @@ class _ColorButton extends StatelessWidget {
 }
 
 class _AddColor extends StatelessWidget {
-  const _AddColor({super.key});
+  const _AddColor();
 
   @override
   Widget build(BuildContext context) {
@@ -108,6 +108,10 @@ class _AddColor extends StatelessWidget {
                     color: Colors.black,
                   ),
                   const Spacer(),
+                  const Row(
+                    children: [],
+                  ),
+                  const Spacer(),
                   Row(
                     children: [
                       const SizedBox(width: 20),
@@ -117,7 +121,8 @@ class _AddColor extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Color(
-                              context.read<GameBloc>().selectedGame.color),
+                            context.read<GameBloc>().selectedGame.color,
+                          ),
                         ),
                       ),
                       const SizedBox(width: 20),

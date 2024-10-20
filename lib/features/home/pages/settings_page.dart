@@ -1,4 +1,7 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -16,6 +19,24 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   ValueNotifier<double> volume = ValueNotifier(1);
+
+  late ui.Image img;
+  Future<ui.Image> load(String asset) async {
+    ByteData data = await rootBundle.load(asset);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List());
+    ui.FrameInfo fi = await codec.getNextFrame();
+    return fi.image;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    load('assets/music_control.png').then((image) {
+      setState(() {
+        img = image;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,9 +117,10 @@ class _SettingsPageState extends State<SettingsPage> {
                           activeTrackColor: Colors.transparent,
                           thumbColor: Colors.white,
                           trackHeight: 50.0,
-                          thumbShape: const RoundSliderThumbShape(
-                            enabledThumbRadius: 25,
-                          ),
+                          thumbShape: SliderThumbImage(img),
+                          // thumbShape: const RoundSliderThumbShape(
+                          //   enabledThumbRadius: 25,
+                          // ),
                         ),
                         child: Slider(
                           min: 0.0,
@@ -188,6 +210,44 @@ class _Button extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class SliderThumbImage extends SliderComponentShape {
+  final ui.Image image;
+
+  SliderThumbImage(this.image);
+
+  @override
+  Size getPreferredSize(bool isEnabled, bool isDiscrete) {
+    return const Size(50, 50);
+  }
+
+  @override
+  void paint(PaintingContext context, Offset center,
+      {required Animation<double> activationAnimation,
+      required Animation<double> enableAnimation,
+      required bool isDiscrete,
+      required TextPainter labelPainter,
+      required RenderBox parentBox,
+      required SliderThemeData sliderTheme,
+      required TextDirection textDirection,
+      required double value,
+      required double textScaleFactor,
+      required Size sizeWithOverflow}) {
+    var canvas = context.canvas;
+    final Rect thumbRect = Rect.fromCenter(
+      center: center,
+      width: 50,
+      height: 50,
+    );
+
+    paintImage(
+      canvas: canvas,
+      image: image,
+      rect: thumbRect,
+      fit: BoxFit.cover,
     );
   }
 }

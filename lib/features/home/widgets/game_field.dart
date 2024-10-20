@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:plink_art/core/utils.dart';
 
 import '../../../core/blocs/game/game_bloc.dart';
 import '../../../core/models/game.dart';
@@ -21,8 +22,8 @@ class GameField extends StatelessWidget {
       },
       minSize: 18,
       child: Container(
-        height: 18,
-        width: 18,
+        height: getWidth(context) > 600 ? 30 : 18,
+        width: getWidth(context) > 600 ? 30 : 18,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: Color(game.color),

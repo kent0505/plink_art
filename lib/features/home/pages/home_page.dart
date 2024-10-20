@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:plink_art/core/utils.dart';
 
 import '../../../core/blocs/music/music_bloc.dart';
 import '../../../core/widgets/custom_scaffold.dart';
@@ -21,7 +22,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    // context.read<MusicBloc>().add(StartMusicEvent());
+    context.read<MusicBloc>().add(StartMusicEvent());
   }
 
   @override
@@ -41,6 +42,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    logger(getWidth(context));
     return CustomScaffold(
       body: Stack(
         children: [

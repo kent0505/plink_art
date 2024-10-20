@@ -51,7 +51,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       logger(event.id);
       gameList = getDefaultGame(event.id);
       emit(GameLoadedState(gameList: gameList));
-      emit(GameLoadedState(gameList: gameList));
     });
   }
 }

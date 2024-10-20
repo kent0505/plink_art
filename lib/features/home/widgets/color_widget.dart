@@ -16,7 +16,7 @@ class ColorWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const SizedBox(width: 26),
+        const SizedBox(width: 20),
         BlocBuilder<GameBloc, GameState>(
           builder: (context, state) {
             return Container(
@@ -29,11 +29,11 @@ class ColorWidget extends StatelessWidget {
             );
           },
         ),
-        const SizedBox(width: 26),
+        const SizedBox(width: 20),
         Expanded(
           child: Wrap(
             runSpacing: 18,
-            spacing: 26,
+            spacing: 20,
             children: [
               ...List.generate(
                 getGameColors(id).length,
@@ -45,7 +45,7 @@ class ColorWidget extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(width: 10),
+        // const SizedBox(width: 10),
       ],
     );
   }
@@ -110,7 +110,7 @@ class _AddColor extends StatelessWidget {
                   const Spacer(),
                   Row(
                     children: [
-                      const SizedBox(width: 26),
+                      const SizedBox(width: 20),
                       Container(
                         height: 78,
                         width: 78,
@@ -120,11 +120,11 @@ class _AddColor extends StatelessWidget {
                               context.read<GameBloc>().selectedGame.color),
                         ),
                       ),
-                      const SizedBox(width: 26),
+                      const SizedBox(width: 20),
                       Expanded(
                         child: Wrap(
                           runSpacing: 18,
-                          spacing: 26,
+                          spacing: 20,
                           children: List.generate(
                             getGameColors(0).length,
                             (index) {
@@ -133,7 +133,6 @@ class _AddColor extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 10),
                     ],
                   ),
                   const SizedBox(height: 40),

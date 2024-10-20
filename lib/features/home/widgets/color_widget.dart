@@ -41,11 +41,10 @@ class ColorWidget extends StatelessWidget {
                   return _ColorButton(getGameColors(id)[index]);
                 },
               ),
-              // if (id == 0) const _AddColor(),
+              if (id == 0) const _AddColor(),
             ],
           ),
         ),
-        // const SizedBox(width: 10),
       ],
     );
   }

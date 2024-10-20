@@ -20,7 +20,7 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   ValueNotifier<double> volume = ValueNotifier(1);
 
-  late ui.Image img;
+  ui.Image? img;
   Future<ui.Image> load(String asset) async {
     ByteData data = await rootBundle.load(asset);
     ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List());
@@ -117,10 +117,11 @@ class _SettingsPageState extends State<SettingsPage> {
                           activeTrackColor: Colors.transparent,
                           thumbColor: Colors.white,
                           trackHeight: 50.0,
-                          thumbShape: SliderThumbImage(img),
-                          // thumbShape: const RoundSliderThumbShape(
-                          //   enabledThumbRadius: 25,
-                          // ),
+                          thumbShape: img != null
+                              ? SliderThumbImage(img!)
+                              : const RoundSliderThumbShape(
+                                  enabledThumbRadius: 25,
+                                ),
                         ),
                         child: Slider(
                           min: 0.0,

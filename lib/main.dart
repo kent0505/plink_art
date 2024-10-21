@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'core/blocs/color/color_bloc.dart';
 import 'core/config/router.dart';
 import 'core/config/themes.dart';
 import 'core/db/db.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => HomeBloc()),
         BlocProvider(create: (context) => GameBloc()),
         BlocProvider(create: (context) => MusicBloc()),
+        BlocProvider(create: (context) => ColorBloc()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

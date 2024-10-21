@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/blocs/music/music_bloc.dart';
 import '../../../core/db/prefs.dart';
 import '../../../core/widgets/custom_scaffold.dart';
 
@@ -16,11 +18,14 @@ class _SplashPageState extends State<SplashPage> {
 
   void load() async {
     await getData().then((onboard) {
+      if (mounted) context.read<MusicBloc>().add(StopMusicEvent());
+
       Future.delayed(Duration.zero, () {
         setState(() {
           loading = true;
         });
       });
+
       Future.delayed(const Duration(seconds: 2), () {
         if (mounted) {
           if (onboard) {

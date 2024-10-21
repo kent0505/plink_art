@@ -1,6 +1,8 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../utils.dart';
+
 part 'music_event.dart';
 part 'music_state.dart';
 
@@ -40,6 +42,12 @@ class MusicBloc extends Bloc<MusicEvent, MusicState> {
 
     on<ChangeVolumeEvent>((event, emit) async {
       await player.setVolume(event.volume);
+      emit(MusicPlayingState());
+    });
+
+    on<StopMusicEvent>((event, emit) async {
+      await player.stop();
+      logger('MUSIC STOPPED');
       emit(MusicPlayingState());
     });
   }

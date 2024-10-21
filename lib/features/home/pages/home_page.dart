@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:plink_art/core/utils.dart';
 
 import '../../../core/blocs/music/music_bloc.dart';
+import '../../../core/utils.dart';
 import '../../../core/widgets/custom_scaffold.dart';
 import '../../../core/blocs/home/home_bloc.dart';
 import '../widgets/nav_bar.dart';
@@ -37,6 +37,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    context.read<MusicBloc>().add(StopMusicEvent());
     super.dispose();
   }
 

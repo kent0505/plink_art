@@ -12,3 +12,5 @@ class ChangeVolumeEvent extends MusicEvent {
 class PauseMusicEvent extends MusicEvent {}
 
 class ResumeMusicEvent extends MusicEvent {}
+
+class StopMusicEvent extends MusicEvent {}
